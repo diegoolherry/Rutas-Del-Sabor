@@ -8,6 +8,7 @@ export default function Home() {
   const [token, setToken] = useState(null);
   const [locales, setLocales] = useState([]);
   const [cargando, setCargando] = useState(true);
+  const [search, setSearch] = useState("");
   const router = useRouter();
  
   useEffect(() => {
@@ -18,8 +19,10 @@ export default function Home() {
   useEffect(() => {
     const fetchLocales = async () => {
       try {
-        const data = await getLocales();
-        console.log("Datos de locales:", data);
+        const data = await getLocales(
+          search ? { q: search } : {}
+        );
+
         setLocales(data.items);
       } catch (error) {
         console.error("Error al obtener locales:", error);
@@ -29,7 +32,7 @@ export default function Home() {
     };
 
     fetchLocales();
-  }, []);
+  }, [search]);
 
   return (
     <div>
@@ -49,6 +52,14 @@ export default function Home() {
       </header>
 
       <h1>Bienvenido a Rutas del Sabor</h1>
+
+      <input
+        type="text"
+        placeholder="Buscar locales..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+
       {cargando && <p>Cargando locales...</p>}
       {!cargando && locales.length === 0 && <p>No hay locales disponibles.</p>}
       {!cargando && locales.map((local) => (
