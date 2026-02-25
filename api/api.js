@@ -30,14 +30,17 @@ const login = async (username , password) => {
     return data;
 }
 
-const getLocales = async () => {
-    const response = await fetch(`${BASE_URL}/api/locals`)
+const getLocales = async (filters = {}) => {
+    const queryParams = new URLSearchParams(filters).toString();
+    const request = queryParams ? `${BASE_URL}/api/locals?${queryParams}` : `${BASE_URL}/api/locals`;
+
+    const response = await fetch(request);
     const data = await response.json();
 
-    if(!response.ok){
+    if (!response.ok) {
         throw new Error(data.message || "Error al obtener locales");
     }
 
     return data;
 }
-export { register, login, getLocales };
+export { register, login, getLocales }; 
