@@ -13,6 +13,7 @@ const Header = ({token, setToken, router}) => {
                 <button onClick={() => {
                 localStorage.removeItem("authToken");
                 setToken(null);
+                router.push("/login");
             }}>Cerrar Sesión</button>
             ) : (
             <div>

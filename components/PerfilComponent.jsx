@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { getUser } from "../../api/api";
+import { getUser } from "../api/api";
 
 
 export default function PerfilComponent() {
