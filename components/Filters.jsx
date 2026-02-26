@@ -16,6 +16,7 @@ const Filters = ({ filters, setFilters }) => {
                 <option value="Montevideo">Montevideo</option>
                 <option value="Colonia">Colonia</option>
                 <option value="Juan Lacaze">Juan Lacaze</option>
+
             </select>
 
             <select value={filters.type} onChange={(e) => handleOnChange("type", e.target.value)}>
@@ -43,15 +44,12 @@ const Filters = ({ filters, setFilters }) => {
                 <option value="5">5 Estrellas</option>
             </select>
 
-            <select value={filters.zone} onChange={(e) => handleOnChange("zone", e.target.value)}>
-                <option value="">Todas las zonas</option>
-                <option value="Centro">Centro</option>
-                <option value="Norte">Norte</option>
-                <option value="Sur">Sur</option>
-                <option value="Este">Este</option>
-                <option value="Oeste">Oeste</option>
-            </select>
-
+            <input 
+                type="text"
+                placeholder="Zona..."
+                value={filters.zone}
+                onChange={(e) => handleOnChange("zone", e.target.value)}
+            />
         </div>
     );
 }

@@ -32,6 +32,7 @@ const login = async (username , password) => {
 
 const getLocales = async (filters = {}) => {
     const queryParams = new URLSearchParams(filters).toString();
+    
     const request = queryParams ? `${BASE_URL}/api/locals?${queryParams}` : `${BASE_URL}/api/locals`;
 
     const response = await fetch(request);
