@@ -4,10 +4,22 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getLocales } from "../api/api";
 
+import Filters from "../components/Filters";
+import Header from "../components/Header";
+import LocalList from "../components/LocalList";
+
 export default function Home() {
   const [token, setToken] = useState(null);
   const [locales, setLocales] = useState([]);
   const [cargando, setCargando] = useState(true);
+  const [filters, setFilters] = useState({
+    q: "",
+    type: "",
+    city: "",
+    priceRange: "",
+    rating: "",
+    zone: "",
+  });
   const router = useRouter();
  
   useEffect(() => {
@@ -18,8 +30,8 @@ export default function Home() {
   useEffect(() => {
     const fetchLocales = async () => {
       try {
-        const data = await getLocales();
-        console.log("Datos de locales:", data);
+        setCargando(true);
+        const data = await getLocales(filters);
         setLocales(data.items);
       } catch (error) {
         console.error("Error al obtener locales:", error);
@@ -29,37 +41,17 @@ export default function Home() {
     };
 
     fetchLocales();
-  }, []);
+  }, [filters]);
 
   return (
     <div>
-      <header>
-        {token ? (
-          <button onClick={() => {
-            localStorage.removeItem("authToken");
-            setToken(null);
-        }}>Cerrar Sesión</button>
-      ) : (
-        <div>
-          <p>No estás autenticado. Por favor, inicia sesión o regístrate.</p>
-          <button onClick={() => router.push("/login")}>Login</button>
-          <button onClick={() => router.push("/register")}>Register</button>
-        </div>
-      )}
-      </header>
+      <Header token={token} setToken={setToken} router={router} />
 
       <h1>Bienvenido a Rutas del Sabor</h1>
-      {cargando && <p>Cargando locales...</p>}
-      {!cargando && locales.length === 0 && <p>No hay locales disponibles.</p>}
-      {!cargando && locales.map((local) => (
-        <div key={local.id}>
-          <p>{local.name}</p>
-          <p>{local.city} - {local.zone}</p>
-          <p>Tipo: {local.type}</p>
-          <p>Precio: {local.priceRange}</p>
-        </div>
-      ))}
 
+      <Filters filters={filters} setFilters={setFilters} />
+
+      <LocalList locales={locales} cargando={cargando} />
     </div>
   );
 }

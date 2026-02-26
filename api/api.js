@@ -30,14 +30,44 @@ const login = async (username , password) => {
     return data;
 }
 
-const getLocales = async () => {
-    const response = await fetch(`${BASE_URL}/api/locals`)
+const getLocales = async (filters = {}) => {
+    const queryParams = new URLSearchParams(filters).toString();
+    
+    const request = queryParams ? `${BASE_URL}/api/locals?${queryParams}` : `${BASE_URL}/api/locals`;
+
+    const response = await fetch(request);
     const data = await response.json();
 
-    if(!response.ok){
+    if (!response.ok) {
         throw new Error(data.message || "Error al obtener locales");
     }
 
     return data;
 }
-export { register, login, getLocales };
+
+const getUser = async (id) => {
+
+    const response = await fetch(`${BASE_URL}/api/users/${id}`)
+
+    const data = await response.json();
+
+    return data;
+}
+
+const postLocal = async (local) => {
+    const response = await fetch(`${BASE_URL}/api/locals`,{
+        method: "POST",
+        headers:{"Content-Type" : "application/json",
+            "Authorization" : `Bearer ${localStorage.getItem("authToken")}`
+    },
+    body: JSON.stringify(local)
+    });
+    if(!response.ok){
+        throw new Error("Error al crear el local");
+    }
+    const data = await response.json();
+    return data;
+}
+
+
+export { register, login, getLocales, getUser, postLocal }; 
