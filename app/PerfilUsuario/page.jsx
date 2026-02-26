@@ -4,8 +4,10 @@ import Header from "../../components/Header";
 const PerfilUsuario = () => {
 
     return (  
-        <Header />
+        <>
+        <Header  />
         <PerfilComponent />
+        </>
     )
 }
 

@@ -44,4 +44,14 @@ const getLocales = async (filters = {}) => {
 
     return data;
 }
-export { register, login, getLocales }; 
+
+const getUser = async (id) => {
+
+    const response = await fetch(`${BASE_URL}/api/users/${id}`)
+
+    const data = await response.json();
+
+    return data;
+}
+
+export { register, login, getLocales, getUser }; 
