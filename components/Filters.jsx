@@ -16,7 +16,6 @@ const Filters = ({ filters, setFilters }) => {
                 <option value="Montevideo">Montevideo</option>
                 <option value="Colonia">Colonia</option>
                 <option value="Juan Lacaze">Juan Lacaze</option>
-
             </select>
 
             <select value={filters.type} onChange={(e) => handleOnChange("type", e.target.value)}>
