@@ -1,11 +1,19 @@
 const Header = ({token, setToken, router}) => {
 
+    const handleProfileClick = () => {
+        if (token) {
+            router.push("/PerfilUsuario");
+        } else {
+            alert("Por favor, inicia sesión para ver tu perfil.");
+        }
+    }
     return (
         <header>
             {token ? (
                 <button onClick={() => {
                 localStorage.removeItem("authToken");
                 setToken(null);
+                router.push("/login");
             }}>Cerrar Sesión</button>
             ) : (
             <div>
@@ -14,6 +22,12 @@ const Header = ({token, setToken, router}) => {
                 <button onClick={() => router.push("/register")}>Register</button>
             </div>
             )}
+
+            <img
+                alt="Foto perfil"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFv_rUJ2Ru3GR0Jxy2YTNH_jrVzX3_HY-THQ&s"
+                onClick={handleProfileClick}
+            />
         </header>
     );
 }
