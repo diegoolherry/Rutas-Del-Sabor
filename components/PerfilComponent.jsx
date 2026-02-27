@@ -1,13 +1,14 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { getUser } from "../api/api";
 
 
 export default function PerfilComponent() {
     const [user, setUser] = useState({});
     const [locales, setLocales] = useState([]);
+    const router = useRouter();
     const param = useParams();
 
     useEffect(() => {
@@ -30,6 +31,7 @@ export default function PerfilComponent() {
         <div>
             <h3>Perfil de {user.name}</h3>
             <p>Username: {user.username}</p>
+            <button onClick={router.push("/AltaLocal")}>Agrega un Local</button>
             <h2>Locales de {user.name}:</h2>
             <ul>
                 {locales.map(local => (

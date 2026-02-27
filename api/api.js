@@ -1,3 +1,4 @@
+
 const BASE_URL = "https://api-react-taller-production.up.railway.app";
 
 const register = async (username, name, password) => {
@@ -69,5 +70,27 @@ const postLocal = async (local) => {
     return data;
 }
 
+const getLocal = async (id) => {
+    const response = await fetch(`${BASE_URL}/api/locals/${id}`);
+    const data = await response.json();
+    return data;
+}
 
-export { register, login, getLocales, getUser, postLocal }; 
+const postReview = async (id, rating, comment) => {
+    const response = await fetch(`${BASE_URL}/api/locals/${id}/reviews`,{
+        method: "POST",
+        headers: {"Content-Type" : "application/json" ,
+            "Authorization" : `Bearer ${localStorage.getItem("token")}`   
+        },
+        body : JSON.stringify({rating , comment})
+    });
+
+    if(response.ok){
+        const data = await response.json();
+        return data;
+    }else{
+        return null;
+    }
+}
+
+export { register, login, getLocales, getUser, postLocal, getLocal, postReview}; 
