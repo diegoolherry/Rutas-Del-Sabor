@@ -1,3 +1,4 @@
+
 const BASE_URL = "https://api-react-taller-production.up.railway.app";
 
 const register = async (username, name, password) => {
@@ -50,6 +51,9 @@ const getUser = async (id) => {
     const response = await fetch(`${BASE_URL}/api/users/${id}`)
 
     const data = await response.json();
+    if (!response.ok) {
+        throw new Error(data.message || "Error al obtener usuario");
+    }
 
     return data;
 }
@@ -69,5 +73,30 @@ const postLocal = async (local) => {
     return data;
 }
 
+const getLocal = async (id) => {
+    const response = await fetch(`${BASE_URL}/api/locals/${id}`);
+    const data = await response.json();
+    if(!response.ok){
+        throw new Error(data.message || "Error al obtener usuario");
+    }
+    return data;
+}
 
-export { register, login, getLocales, getUser, postLocal }; 
+const postReview = async (id, rating, comment) => {
+    const response = await fetch(`${BASE_URL}/api/locals/${id}/reviews`,{
+        method: "POST",
+        headers: {"Content-Type" : "application/json" ,
+            "Authorization" : `Bearer ${localStorage.getItem("authToken")}`   
+        },
+        body : JSON.stringify({rating , comment})
+    });
+
+    const data = await response.json();
+    if(!response.ok){
+        throw new Error(data.message || "Error al obtener usuario");
+    }
+
+    return data;
+}
+
+export { register, login, getLocales, getUser, postLocal, getLocal, postReview}; 
