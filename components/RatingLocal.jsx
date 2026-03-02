@@ -85,3 +85,5 @@ const RatingLocal = ({id , name , setRefresh}) => {
         </div>
     )
 }
+
+export default RatingLocal;

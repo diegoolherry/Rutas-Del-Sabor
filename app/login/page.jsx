@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { login } from "../../api/api";
 import { useRouter } from "next/navigation";
 
@@ -14,6 +14,7 @@ export default function Login(){
         try{
             const data = await login(username, password);
             localStorage.setItem("authToken", data.token);
+            localStorage.setItem("userId", data.user.id);
             console.log("Inicio de sesión exitoso:", data);
             router.push("/home");
 
@@ -23,6 +24,12 @@ export default function Login(){
         setUsername("");
         setPassword("");
     }
+    useEffect(() => {
+      const token = localStorage.getItem("authToken");
+      if(token){
+        router.push("/Home");
+      }
+    }, [])
 
     return (
         <div className="h-screen font-sans bg-cover bg-center relative"style={{backgroundImage: "url('/fondoLogin.jpg')"}} >
