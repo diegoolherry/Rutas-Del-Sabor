@@ -24,3 +24,47 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.form-style {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(17, 24, 39, 0.8), rgba(31, 41, 55, 0.8));
+  border-radius: 0.5rem;
+  border: 1px solid rgba(107, 114, 128, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-style > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.form-style > div > label {
+  margin-top: 0;
+}
+
+.form-style > div > div.mt-2 {
+  display: contents;
+}
+
+.form-style > div > .flex {
+  grid-column: 1 / -1;
+}
+
+.form-style > div > button[type="submit"] {
+  grid-column: 1 / -1;
+}
+
+.form-style label {
+  margin-top: 1rem;
+}
+
+.form-style button[type="submit"] {
+  margin-top: 1rem;
+  width: 100%;
+}

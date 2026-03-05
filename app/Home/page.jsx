@@ -2,14 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getLocales } from "../api/api";
+import { getLocales } from "../../api/api";
 
-import Filters from "../components/Filters";
-import Header from "../components/Header";
-import LocalList from "../components/LocalList";
+import Filters from "../../components/Filters";
+import Header from "../../components/Header";
+import LocalList from "../../components/LocalList";
 
 export default function Home() {
   const [token, setToken] = useState(null);
+  const [userId, setUserId] = useState(null);
   const [locales, setLocales] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [filters, setFilters] = useState({
@@ -25,6 +26,8 @@ export default function Home() {
   useEffect(() => {
     const savedToken = localStorage.getItem("authToken");
     setToken(savedToken);
+    const savedUserId = localStorage.getItem("userId");
+    setUserId(savedUserId);
   }, []);
 
   useEffect(() => {
@@ -45,7 +48,7 @@ export default function Home() {
 
   return (
     <div>
-      <Header token={token} setToken={setToken} router={router} />
+      <Header token={token} setToken={setToken} router={router} userId={userId} />
 
       <h1>Bienvenido a Rutas del Sabor</h1>
 

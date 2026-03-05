@@ -1,29 +1,30 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { getUser } from "../api/api";
 
 
-export default function PerfilComponent() {
+export default function PerfilComponent({ userId }) {
     const [user, setUser] = useState({});
     const [locales, setLocales] = useState([]);
     const router = useRouter();
-    const param = useParams();
 
     useEffect(() => {
+        if (!userId) return;
+
         const fetchUser = async () => {
             try{
-                const data = await getUser(param.id);
+                const data = await getUser(userId);
                 setUser(data);
-                setLocales(data.locales);
+                setLocales(data.locales || []);
             }
             catch(error){
                 console.error("Error al obtener usuario:", error);
             }
         }
         fetchUser();
-    }, [param.id]);
+    }, [userId]);
 
     return (  
         <div>
@@ -47,3 +48,4 @@ export default function PerfilComponent() {
         </div>
     )
 }
+

@@ -1,6 +1,4 @@
-const Header = ({token, setToken, router}) => {
-    const userId = localStorage.getItem("userId");
-
+const Header = ({token, setToken, router, userId}) => {
     
     const handleProfileClick = () => {
         if (token) {
