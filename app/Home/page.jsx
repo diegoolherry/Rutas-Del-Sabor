@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getLocales } from "../api/api";
+import { getLocales } from "../../api/api";
 
-import Filters from "../components/Filters";
-import Header from "../components/Header";
-import LocalList from "../components/LocalList";
+import Filters from "../../components/Filters";
+import Header from "../../components/Header";
+import LocalList from "../../components/LocalList";
 
 export default function Home() {
   const [token, setToken] = useState(null);

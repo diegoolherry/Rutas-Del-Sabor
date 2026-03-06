@@ -16,7 +16,7 @@ export default function Login(){
             localStorage.setItem("authToken", data.token);
             localStorage.setItem("userId", data.user.id);
             console.log("Inicio de sesión exitoso:", data);
-            router.push("/home");
+            router.push("/Home");
 
         } catch(error){
             console.error("Error al iniciar sesión:", error.message);
@@ -36,11 +36,11 @@ export default function Login(){
         <div className="container mx-auto h-full flex flex-1 justify-center items-center ">
         <div className="w-full max-w-lg">
             <form 
-              className="max-w-sm w-full px-6 py-2 bg-white/25 rounded-xl shadow-2xl border border-white/40"
+              className="max-w-sm w-full px-6 pt-2 pb-1 bg-white/25 rounded-xl shadow-2xl border border-white/40"
               onSubmit={handleSubmit}
             >
-                <div className="flex flex-col items-center gap-0 mb-1">
-                    <img src="/logo.png" alt="LogoRutasDelSabor" className="w-24 h-auto drop-shadow-2xl block" />
+                <div className="flex flex-col items-center gap-2 mb-1">
+                    <img src="/logo.png" alt="LogoRutasDelSabor" className="w-12 h-auto drop-shadow-2xl block" />
                     <p className="text-white font-bold text-lg leading-none m-0 p-0">LOGIN</p>
                 </div>
               <div className="mt-2">
@@ -48,9 +48,11 @@ export default function Login(){
                 <input 
                   className="w-full px-5 py-1 text-gray-700 bg-gray-300 rounded focus:outline-none focus:bg-white" 
                   type="text" 
-                  id="usuario" 
+                  id="username" 
                   placeholder="Ingrese su usuario" 
-                  aria-label="usuario" 
+                  aria-label="usuario"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)} 
                   required 
                 />
               </div>
@@ -60,22 +62,24 @@ export default function Login(){
                 <input 
                   className="w-full px-5 py-1 text-gray-700 bg-gray-300 rounded focus:outline-none focus:bg-white"
                   type="password" 
-                  id="contraseña" 
+                  id="password" 
                   placeholder="Ingrese su contraseña" 
-                  aria-label="password" 
+                  aria-label="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)} 
                   required 
                 />
               </div>
 
               <div className="mt-4 items-center flex justify-between">
                 <button 
-                  className="px-4 py-1 text-white font-light tracking-wider bg-gray-900 hover:bg-gray-800 rounded transition-colors"
+                  className="px-4 py-1 text-white font-light tracking-wider bg-red-700 hover:bg-red-500 rounded transition-colors cursor-pointer"
                   type="submit"
                 >
                   Iniciar
                 </button>
                 <a 
-                  className="inline-block align-baseline font-bold text-sm text-white hover:text-red-400 transition-colors"
+                  className="inline-block align-baseline font-bold text-sm text-red-600 hover:text-red-500 transition-colors"
                   href="/register"
                 >
                   ¿No tiene cuenta?

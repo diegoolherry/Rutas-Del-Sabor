@@ -16,7 +16,7 @@ export default function PerfilComponent() {
             try{
                 const data = await getUser(param.id);
                 setUser(data);
-                setLocales(data.locales);
+                setLocales(data.locales || []);
             }
             catch(error){
                 console.error("Error al obtener usuario:", error);
