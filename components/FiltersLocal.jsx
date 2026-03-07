@@ -7,7 +7,7 @@ const Filters = ({ filters, setFilters }) => {
     const selectClass = "w-full sm:w-auto rounded-xl border border-stone-200 bg-white px-4 py-2.5 text-sm text-stone-700 focus:outline-none focus:ring-2 focus:ring-red-400 cursor-pointer";
 
     return (
-        <div className="bg-white rounded-2xl border border-stone-100 shadow-sm p-5">
+        <div id="locales" className="bg-white rounded-2xl border border-stone-100 shadow-sm p-5">
             <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-4">Filtros</h2>
             <div className="flex flex-wrap gap-3">
                 <input

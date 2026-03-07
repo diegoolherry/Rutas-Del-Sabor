@@ -39,7 +39,7 @@ export default function Register(){
       <div className="min-h-screen sm:flex sm:flex-row mx-0 justify-center">
         <div className="flex-col flex self-center p-10 sm:max-w-5xl xl:max-w-2xl z-10">
           <div className="self-start hidden lg:flex flex-col text-white">
-            <img src="" className="mb-3" alt="" />
+            <img src="../public/fondoRegister4" className="mb-3" alt="" />
             <h1 className="mb-3 font-bold text-5xl drop-shadow-lg">Rutas del Sabor</h1>
             <p className="pr-3 drop-shadow-md">
                 Descubre restaurantes, cafeterías, bares y food trucks.

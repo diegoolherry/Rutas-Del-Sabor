@@ -62,6 +62,10 @@ const getPlatos = async (filters = {}) => {
 const getPlatoById = async (id) => {
     const response = await fetch(`${BASE_URL}/api/dishes/${id}`);
     const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.message || "Error al obtener platos");
+    }
     return data;
 }
 
@@ -107,5 +111,30 @@ const postPlato = async (plato) => {
     return data;
 }
 
+const getLocal = async (id) => {
+    const response = await fetch(`${BASE_URL}/api/locals/${id}`);
+    const data = await response.json();
+    if(!response.ok){
+        throw new Error(data.message || "Error al obtener usuario");
+    }
+    return data;
+}
 
-export { register, login, getLocales, getPlatos, getPlatoById, getUser, postLocal, postPlato }; 
+const postReview = async (id, rating, comment) => {
+    const response = await fetch(`${BASE_URL}/api/locals/${id}/reviews`,{
+        method: "POST",
+        headers: {"Content-Type" : "application/json" ,
+            "Authorization" : `Bearer ${localStorage.getItem("authToken")}`   
+        },
+        body : JSON.stringify({rating , comment})
+    });
+
+    const data = await response.json();
+    if(!response.ok){
+        throw new Error(data.message || "Error al obtener usuario");
+    }
+
+    return data;
+}
+
+export { register, login, getLocales, getPlatos, getPlatoById, getUser, postLocal, postPlato, getLocal, postReview}; 

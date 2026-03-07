@@ -1,14 +1,15 @@
 'use client'
 
 import Header from "../../../components/Header";
-import DetalleLocal from "../../../components/DetalleLocal";
+import DetallePlato from "../../../components/DetallePlato";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Footer from "../../../components/Footer";
 
 const DetalleLocalPage = () => {
     const [token, setToken] = useState(null);
     const [userId, setUserId] = useState(null);
+    const { id } = useParams();
     const router = useRouter();
 
     useEffect(() => {
@@ -27,7 +28,7 @@ const DetalleLocalPage = () => {
     return (
         <>
             <Header token={token} setToken={setToken} router={router} userId={userId} />
-            <DetalleLocal />
+            <DetallePlato id={id} />
             <Footer />
         </>
     );

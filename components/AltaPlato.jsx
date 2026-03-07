@@ -1,8 +1,8 @@
 'use client';
-import { useState, useEffect } from "react";
-import Header from "./Header";
-import { useRouter } from "next/navigation";
+
+import { useState } from "react";
 import { postPlato } from "../api/api";
+import { useRouter } from "next/navigation";
 
 const AltaPlato = () => {
     const [plato, setPlato] = useState({
@@ -15,17 +15,7 @@ const AltaPlato = () => {
     });
     const [cargando, setCargando] = useState(false);
     const [error, setError] = useState(null);
-    const [token, setToken] = useState(null);  
     const router = useRouter();
-
-    useEffect(() => {
-        const storedToken = localStorage.getItem("authToken");
-        if (!storedToken) {
-            router.push("/login");
-        } else {
-            setToken(storedToken);
-        }
-    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -41,7 +31,7 @@ const AltaPlato = () => {
                 price: "",
                 description: ""
             });
-            router.push("/PerfilUsuario");
+            router.push("/Home");
         }
         catch(error){
             setError(error.message);
@@ -53,7 +43,6 @@ const AltaPlato = () => {
 
     return (
         <div>
-            <Header token={token} setToken={setToken} router={router} />
             <div className="max-w-2xl mx-auto py-8">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6">Agregar Nuevo Plato</h2>
                 {error && <div className="bg-red-100 text-red-700 p-3 rounded mb-4">{error}</div>}

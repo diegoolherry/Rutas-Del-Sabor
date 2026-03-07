@@ -2,18 +2,26 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getLocales } from "../../api/api";
+import { getLocales, getPlatos } from "../../api/api";
 
-import Filters from "../../components/Filters";
+import FiltersLocal from "../../components/FiltersLocal";
+import FiltersPlato from "../../components/FiltersPlato";
 import Header from "../../components/Header";
 import LocalList from "../../components/LocalList";
+import PlatoList from "../../components/PlatoList";
+import Footer from "../../components/Footer";
 
 export default function Home() {
   const [token, setToken] = useState(null);
   const [userId, setUserId] = useState(null);
+
   const [locales, setLocales] = useState([]);
-  const [cargando, setCargando] = useState(true);
-  const [filters, setFilters] = useState({
+  const [cargandoLocales, setCargandoLocales] = useState(true);
+
+  const [platos, setPlatos] = useState([]);
+  const [cargandoPlatos, setCargandoPlatos] = useState(true);
+
+  const [filtersLocal, setFiltersLocal] = useState({
     q: "",
     type: "",
     city: "",
@@ -21,8 +29,19 @@ export default function Home() {
     rating: "",
     zone: "",
   });
+
+  const [filtersPlatos, setFiltersPlatos] = useState({
+    q: "",
+    category: "",
+    city: "",
+    zone: "",
+    dateFrom: "",
+    dateTo: "",
+    localId: "",
+  });
+
   const router = useRouter();
- 
+
   useEffect(() => {
     const savedToken = localStorage.getItem("authToken");
     setToken(savedToken);
@@ -33,18 +52,34 @@ export default function Home() {
   useEffect(() => {
     const fetchLocales = async () => {
       try {
-        setCargando(true);
-        const data = await getLocales(filters);
+        setCargandoLocales(true);
+        const data = await getLocales(filtersLocal);
         setLocales(data.items);
       } catch (error) {
         console.error("Error al obtener locales:", error);
-      }finally {
-        setCargando(false);
+      } finally {
+        setCargandoLocales(false);
       }
     };
 
     fetchLocales();
-  }, [filters]);
+  }, [filtersLocal]);
+
+  useEffect(() => {
+    const fetchPlatos = async () => {
+      try {
+        setCargandoPlatos(true);
+        const data = await getPlatos(filtersPlatos);
+        setPlatos(data.items);
+      } catch (error) {
+        console.error("Error al obtener platos:", error);
+      } finally {
+        setCargandoPlatos(false);
+      }
+    };
+
+    fetchPlatos();
+  }, [filtersPlatos]);
 
   return (
     <div className="min-h-screen bg-stone-50">
@@ -56,9 +91,14 @@ export default function Home() {
       </div>
 
       <div className="max-w-6xl mx-auto px-6 py-8 space-y-6">
-        <Filters filters={filters} setFilters={setFilters} />
-        <LocalList locales={locales} cargando={cargando} />
+        <FiltersLocal filters={filtersLocal} setFilters={setFiltersLocal} />
+        <LocalList locales={locales} cargando={cargandoLocales} />
+
+        <FiltersPlato filters={filtersPlatos} setFilters={setFiltersPlatos} />
+        <PlatoList platos={platos} cargando={cargandoPlatos} />
       </div>
+
+      <Footer />
     </div>
   );
 }

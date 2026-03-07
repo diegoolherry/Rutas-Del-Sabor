@@ -5,8 +5,7 @@ import { useRouter } from "next/navigation";
 
 import Header from "../../components/Header";
 import AltaLocal from "../../components/AltaLocal";
-
-
+import Footer from "../../components/Footer";
 
 const AltaLocalPage = () =>{
 
@@ -31,6 +30,7 @@ const AltaLocalPage = () =>{
         <>
         <Header token={token} setToken={setToken} router={router} userId={userId} />
         <AltaLocal />
+        <Footer />
         </>
     )
 }

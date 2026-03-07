@@ -21,26 +21,22 @@ const Header = ({token, setToken, router, userId}) => {
    <nav className="bg-white px-6 py-3 shadow-md">
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
                 
-                {/* IZQUIERDA: Logo e Imagen */}
                 <div className="flex items-center gap-3 w-full md:w-auto">
                     <img 
                         src="/logo.png" 
                         alt="Logo" 
                         className="h-10 w-10 object-contain rounded-full cursor-pointer"
-                        onClick={()=> router.push("/")}
+                        onClick={()=> router.push("/Home")}
                     />
-                    <h2 className="text-xl font-bold text-red-600 italic transition-colors duration-300 hover:text-red-800 cursor-pointer" onClick={()=> router.push("/")}>Rutas del Sabor</h2>
+                    <h2 className="text-xl font-bold text-red-600 italic transition-colors duration-300 hover:text-red-800 cursor-pointer" onClick={()=> router.push("/Home")}>Rutas del Sabor</h2>
                 </div>
       
-                {/* CENTRO: Enlaces de Navegación */}
                 <div className="flex gap-6 font-medium text-gray-600">
                     <a href="#locales" className="hover:text-red-600 transition-colors font-semibold">Locales</a>
                     <a href="#platos" className="hover:text-red-600 transition-colors font-semibold">Platos</a>
                 </div>
 
-                {/* DERECHA: Sesión e Icono de Usuario */}
                 <div className="flex items-center gap-4">
-                    {/* Sesión */}
                     <div className="flex items-center gap-4 text-sm font-semibold border-r pr-4 border-gray-200">
                         <button
                          onClick={handleLogout} 
@@ -52,14 +48,13 @@ const Header = ({token, setToken, router, userId}) => {
                         </button>
                     </div>
 
-                    {/* LOGO DE USUARIO (Acceso al Perfil) */}
                     <button 
                         onClick={handleProfileClick}
                         className="focus:outline-none hover:opacity-80 transition-opacity cursor-pointer"
                         title="Ver mi perfil"
                     >
                         <img 
-                            src="/perfil.png" // Asegúrate de que el nombre del archivo sea el correcto
+                            src="/perfil.png" 
                             alt="Usuario" 
                             className="h-10 w-10 object-contain"
                         />

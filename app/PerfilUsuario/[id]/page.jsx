@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 
 import PerfilComponent from "../../../components/PerfilComponent";
 import Header from "../../../components/Header";
+import Footer from "../../../components/Footer";
 
 const PerfilUsuario = () => {
 
@@ -28,6 +29,7 @@ const PerfilUsuario = () => {
         <>
         <Header token={token} setToken={setToken} router={router} userId={userId} />
         {userId && <PerfilComponent userId={userId} />}
+        <Footer />
         </>
     )
 }

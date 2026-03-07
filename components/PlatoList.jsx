@@ -1,48 +1,81 @@
-'use client';
-import { useState, useEffect } from "react";
-import { getPlatos } from "../api/api";
-import Link from "next/link";
+'use client'
 
-const PlatoList = () => {
-    const [platos, setPlatos] = useState([]);
-    const [loading, setLoading] = useState(true);
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-    useEffect(() => {
-        const fetchPlatos = async () => {
-            try {
-                const data = await getPlatos();
-                console.log(data);
-                setPlatos(data.items || []);
-            } catch (error) {
-                console.error("No hay platos disponibles", error);
-            } finally {
-                setLoading(false);
-            }
-        };
+const PlatoList = ({ platos, cargando }) => {
+    const router = useRouter();
+    const [verTodos, setVerTodos] = useState(false);
 
-        fetchPlatos();
-    }, []);
-
-    if (loading) {
-        return <div>Cargando platos</div>;
+    if (cargando) {
+        return (
+            <div className="flex justify-center py-20">
+                <p className="text-stone-400 text-sm tracking-widest uppercase animate-pulse">Cargando platos...</p>
+            </div>
+        );
     }
 
-    return (
-        <div className="max-w-7xl mx-auto py-8">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">Nuestros Platos</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {platos.map((plato) => (
-                    <Link key={plato.id} href={`/platos/${plato.id}`} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                        <div className="p-4">
-                            <h3 className="text-xl font-bold text-gray-800">{plato.name}</h3>
-                            <p className="text-gray-600 mt-2">{plato.description}</p>
-                            <p className="text-lg font-bold text-red-600 mt-4">${Number(plato.price).toFixed(2)}</p>
-                        </div>
-                    </Link>
-                ))}
+    if (platos.length === 0) {
+        return (
+            <div className="flex flex-col items-center py-20 gap-2">
+                <span className="text-4xl">🍴</span>
+                <p className="text-stone-400 text-sm">No hay platos disponibles.</p>
             </div>
+        );
+    }
+
+    const categoryColor = {
+        ENTRADA:   "bg-amber-50 text-amber-600",
+        PRINCIPAL: "bg-red-50 text-red-500",
+        POSTRE:    "bg-pink-50 text-pink-500",
+        BEBIDA:    "bg-blue-50 text-blue-500",
+        OTROS:     "bg-stone-100 text-stone-500",
+    };
+
+    const platosAMostrar = verTodos ? platos : platos.slice(0, 9);
+
+    return (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {platosAMostrar.map((plato) => (
+                <div
+                    key={plato.id}
+                    onClick={() => router.push(`/DetallePlato/${plato.id}`)}
+                    className="bg-white rounded-2xl border border-stone-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer overflow-hidden"
+                >
+                    <img
+                        src={plato.photos?.[0] || "https://img.freepik.com/vector-gratis/illustration-of-food-menu_53876-9785.jpg?w=740"}
+                        alt={plato.name}
+                        className="w-full h-40 object-cover"
+                    />
+                    <div className="p-4 space-y-2">
+                        <h3 className="font-bold text-stone-800 text-base">{plato.name}</h3>
+                        <p className="text-xs text-stone-400 line-clamp-2">{plato.description}</p>
+                        <div className="flex items-center justify-between pt-1">
+                            <span className="text-sm font-bold text-red-600">
+                                ${Number(plato.price).toFixed(2)}
+                            </span>
+                            {plato.category && (
+                                <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${categoryColor[plato.category] ?? "bg-stone-100 text-stone-500"}`}>
+                                    {plato.category}
+                                </span>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            ))}
+
+            {platos.length > 9 && (
+                <div className="col-span-full flex justify-center pt-2">
+                    <button
+                        onClick={() => setVerTodos(!verTodos)}
+                        className="px-6 py-2.5 rounded-xl border border-red-200 text-red-600 text-sm font-medium hover:bg-red-50 transition-colors"
+                    >
+                        {verTodos ? "Ver menos ↑" : `Ver todos (${platos.length}) ↓`}
+                    </button>
+                </div>
+            )}
         </div>
     );
-};
+}
 
 export default PlatoList;
