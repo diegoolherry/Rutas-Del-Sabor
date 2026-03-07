@@ -3,7 +3,8 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getLocal } from "../api/api";
-import  RatingLocal  from "../components/RatingLocal"
+import  RatingLocal  from "../components/RatingLocal";
+import { Rating } from "react-simple-star-rating";
 
 const DetalleLocal = () => {
     const [local, setLocal] = useState(null);
@@ -103,10 +104,10 @@ const DetalleLocal = () => {
                                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFv_rUJ2Ru3GR0Jxy2YTNH_jrVzX3_HY-THQ&s"
                                         className="w-10 h-10 rounded-full object-cover flex-shrink-0"
                                     />
-                                    <div>
-                                        <Rating value={review.rating} readonly />
-                                        <p className="text-stone-600 text-sm mt-1">{review.comment}</p>
+                                    <div className="flex">
+                                        <Rating initialValue ={review.rating} readonly SVGstyle={{ display: "inline" }} />
                                     </div>
+                                    <p className="text-stone-600 text-sm mt-1">{review.comment}</p>
                                 </li>
                             ))}
                         </ul>
