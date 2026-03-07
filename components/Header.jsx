@@ -13,7 +13,7 @@ const Header = ({token, setToken, router}) => {
     
     const handleProfileClick = () => {
         if (token) {
-            router.push("/PerfilUsuario");
+            router.push(`/PerfilUsuario/${userId}`);
         } else {
             alert("Por favor, inicia sesión para ver tu perfil.");
         }
