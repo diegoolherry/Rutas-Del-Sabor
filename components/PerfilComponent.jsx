@@ -41,12 +41,20 @@ export default function PerfilComponent({ userId }) {
                         <p className="text-sm text-gray-400 mt-0.5">@{user.item.username}</p>
                     </div>
                 </div>
-                <button
-                    onClick={() => router.push("/AltaLocal")}
-                    className="mt-6 w-full sm:w-auto px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 active:scale-95 transition-all text-white text-sm font-medium rounded-xl"
-                >
-                    + Agrega un Local
-                </button>
+                <div className="mt-6 flex flex-wrap gap-3">
+                    <button
+                        onClick={() => router.push("/AltaLocal")}
+                        className="w-full sm:w-auto px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 active:scale-95 transition-all text-white text-sm font-medium rounded-xl"
+                    >
+                        + Agrega un Local
+                    </button>
+                    <button
+                        onClick={() => router.push("/altaPlato")}
+                        className="w-full sm:w-auto px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 active:scale-95 transition-all text-white text-sm font-medium rounded-xl"
+                    >
+                        + Agrega un Plato
+                    </button>
+                </div>
             </div>
 
             <h2 className="text-lg font-semibold text-gray-700 mb-4">
