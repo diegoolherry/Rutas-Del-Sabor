@@ -1,15 +1,4 @@
-'use client';
-
-import { useEffect } from "react";
-
-const Header = ({token, setToken, router}) => {
-    
-    useEffect(() => {
-        const savedToken = localStorage.getItem("authToken");
-        setToken(savedToken);
-    }, []);
-
-    const userId = localStorage.getItem("userId");
+const Header = ({token, setToken, router, userId}) => {
     
     const handleProfileClick = () => {
         if (token) {
