@@ -44,7 +44,7 @@ const AltaPlato = () => {
     return (
         <div>
             <div className="max-w-2xl mx-auto py-8">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">Agregar Nuevo Plato</h2>
+                <h2 className="text-2xl font-bold text-white-800 mb-6">Agregar Nuevo Plato</h2>
                 {error && <div className="bg-red-100 text-red-700 p-3 rounded mb-4">{error}</div>}
                 <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md">
                     <div className="mb-4">

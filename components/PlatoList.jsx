@@ -42,11 +42,6 @@ const PlatoList = ({ platos, cargando }) => {
                     onClick={() => router.push(`/DetallePlato/${plato.id}`)}
                     className="bg-white rounded-2xl border border-stone-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer overflow-hidden"
                 >
-                    <img
-                        src={plato.photos?.[0] || "https://img.freepik.com/vector-gratis/illustration-of-food-menu_53876-9785.jpg?w=740"}
-                        alt={plato.name}
-                        className="w-full h-40 object-cover"
-                    />
                     <div className="p-4 space-y-2">
                         <h3 className="font-bold text-stone-800 text-base">{plato.name}</h3>
                         <p className="text-xs text-stone-400 line-clamp-2">{plato.description}</p>

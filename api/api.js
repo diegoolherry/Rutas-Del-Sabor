@@ -9,6 +9,8 @@ const register = async (username, name, password) => {
     });
 
     const data = await response.json();
+    console.log("status:", response.status);
+    console.log("respuesta:", data);
     if (!response.ok) {
         throw new Error(data.message || "Error al registrar usuario");
     }
@@ -93,6 +95,9 @@ const postLocal = async (local) => {
         throw new Error("Error al crear el local");
     }
     const data = await response.json();
+    console.log("status:", response.status);
+    console.log("respuesta:", data);
+
     return data;
 }
 
@@ -137,4 +142,21 @@ const postReview = async (id, rating, comment) => {
     return data;
 }
 
-export { register, login, getLocales, getPlatos, getPlatoById, getUser, postLocal, postPlato, getLocal, postReview}; 
+const postReviewPlato = async (id, rating, comment) => {
+    const response = await fetch(`${BASE_URL}/api/dishes/${id}/reviews`,{
+        method: "POST",
+        headers: {"Content-Type" : "application/json" ,
+            "Authorization" : `Bearer ${localStorage.getItem("authToken")}`   
+        },
+        body : JSON.stringify({rating , comment})
+    });
+
+    const data = await response.json();
+    if(!response.ok){
+        throw new Error(data.message || "Error al crear review del plato");
+    }
+
+    return data;
+}
+
+export { register, login, getLocales, getPlatos, getPlatoById, getUser, postLocal, postPlato, getLocal, postReview, postReviewPlato}; 

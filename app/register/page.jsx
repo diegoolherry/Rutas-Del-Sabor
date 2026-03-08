@@ -58,16 +58,20 @@ export default function Register(){
                 <label className="text-sm font-medium text-gray-700 tracking-wide">Usuario</label>
                 <input 
                   className="w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-400 placeholder-gray-300 " 
-                  type="username"
-                  placeholder="Ingrese su nombre de usuario" 
+                  type="text"
+                  placeholder="Ingrese su nombre de usuario"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)} 
                 />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-700 tracking-wide">Nombre</label>
                 <input 
                   className="w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-400 placeholder-gray-300 " 
-                  type="name" 
-                  placeholder="Ingrese su Nombre" 
+                  type="text" 
+                  placeholder="Ingrese su Nombre"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)} 
                 />
               </div>
               <div className="space-y-2">
@@ -76,6 +80,8 @@ export default function Register(){
                   className="w-full content-center text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-400 placeholder-gray-300 " 
                   type="password" 
                   placeholder="Ingrese su contraseña" 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div className="flex items-center justify-between">
@@ -84,6 +90,7 @@ export default function Register(){
                 <button 
                   type="submit" 
                   className="w-full flex justify-center bg-red-400 hover:bg-red-500 text-gray-100 p-3 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500"
+                  onClick={handleSubmit}
                 >
                   Crear
                 </button>

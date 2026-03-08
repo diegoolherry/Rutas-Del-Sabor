@@ -4,12 +4,12 @@ import { useState } from "react";
 import { postLocal } from "../api/api";
 import { useRouter } from "next/navigation";
 
-const AltaLocal = () => {
+const AltaLocal = ({userId}) => {
 
     const [local, setLocal] = useState({
         name: "",
-        type: "",
-        priceRange: "",
+        type: "RESTAURANTE",
+        priceRange: "ECONOMICO",
         city: "",
         zone: "",
         address: "",
@@ -31,13 +31,12 @@ const AltaLocal = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setCargando(true);
-
         try{
             await postLocal(local);
             setLocal({
                 name: "",
-                type: "",
-                priceRange: "",
+                type: "RESTAURANTE",
+                priceRange: "ECONOMICO",
                 city: "",
                 zone: "",
                 address: "",

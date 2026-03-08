@@ -29,7 +29,7 @@ const AltaLocalPage = () =>{
     return(
         <>
         <Header token={token} setToken={setToken} router={router} userId={userId} />
-        <AltaLocal />
+        <AltaLocal userId={userId} />
         <Footer />
         </>
     )

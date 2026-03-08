@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from "react";
 import { getPlatoById } from "../api/api";
+import RatingPlato from "./RatingPlato";
 
 const categoryColor = {
     ENTRADA:   "bg-amber-50 text-amber-600",
@@ -20,6 +21,7 @@ const categoryLabel = {
 
 const DetallePlato = ({ id }) => {
     const [plato, setPlato] = useState(null);
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
         if (!id) return;
@@ -32,7 +34,7 @@ const DetallePlato = ({ id }) => {
             }
         };
         fetchPlato();
-    }, [id]);
+    }, [id, refresh]);
 
     if (!plato) {
         return (
@@ -45,7 +47,6 @@ const DetallePlato = ({ id }) => {
     return (
         <div className="max-w-2xl mx-auto px-6 py-10">
             <div className="bg-white rounded-2xl border border-stone-100 shadow-sm overflow-hidden">
-
                 <div className="bg-red-600 px-6 py-8">
                     <h1 className="text-2xl font-bold text-white">{plato.name}</h1>
                     {plato.category && (
@@ -74,6 +75,39 @@ const DetallePlato = ({ id }) => {
                     )}
                 </div>
             </div>
+
+            <div className="bg-white rounded-2xl border border-stone-100 shadow-sm p-6 mt-6">
+                <h3 className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-4">
+                    Dejá tu reseña
+                </h3>
+                <RatingPlato
+                    id={plato.id}
+                    name={plato.name}
+                    setRefresh={() => setRefresh(prev => !prev)}
+                />
+            </div>
+
+            {plato.reviews && plato.reviews.length > 0 && (
+                <div className="bg-white rounded-2xl border border-stone-100 shadow-sm p-6 mt-6">
+                    <h3 className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-4">
+                        Reseñas
+                    </h3>
+                    <div className="space-y-4">
+                        {plato.reviews.map((review, index) => (
+                            <div key={index} className="border-b border-stone-100 pb-4">
+                                <div className="text-amber-500 text-sm">
+                                    {"★".repeat(review.rating)}
+                                </div>
+                                {review.comment && (
+                                    <p className="text-sm text-stone-600 mt-1">
+                                        {review.comment}
+                                    </p>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

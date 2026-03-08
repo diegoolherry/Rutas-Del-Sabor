@@ -8,7 +8,17 @@ import { getUser } from "../api/api";
 export default function PerfilComponent({ userId }) {
     const [user, setUser] = useState(null);
     const [locales, setLocales] = useState([]);
+    const [platos, setPlatos] = useState([]);
     const router = useRouter();
+
+
+    const categoryColor = {
+        ENTRADA:   "bg-amber-50 text-amber-600",
+        PRINCIPAL: "bg-red-50 text-red-500",
+        POSTRE:    "bg-pink-50 text-pink-500",
+        BEBIDA:    "bg-blue-50 text-blue-500",
+        OTROS:     "bg-stone-100 text-stone-500",
+    };
 
     useEffect(() => {
         if (!userId) return;
@@ -17,7 +27,8 @@ export default function PerfilComponent({ userId }) {
             try{
                 const data = await getUser(userId);
                 setUser(data);
-                setLocales(data.item.locales || []);
+                setLocales(data.item.locals  || []);
+                setPlatos(data.item.dishes || []);
                 console.log(data);
             }
             catch(error){
@@ -93,6 +104,39 @@ export default function PerfilComponent({ userId }) {
                     </li>
                 ))}
             </ul>
+            <h2 className="text-lg font-semibold text-gray-700 mb-4">
+                Platos de <span className="text-indigo-600">{user.item.name}</span>
+            </h2>
+            {platos.length === 0 ? (
+                <p className="text-sm text-gray-400">No hay platos creados aún.</p>
+            ) : (
+                <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                    {platos.map(plato => (
+                        <li
+                            key={plato.id}
+                            onClick={() => router.push(`/DetallePlato/${plato.id}`)}
+                            className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow cursor-pointer"
+                        >
+                            <div className="p-4 space-y-2">
+                                <h4 className="font-semibold text-gray-900 text-base">{plato.name}</h4>
+                                {plato.description && (
+                                    <p className="text-xs text-gray-400 line-clamp-2">{plato.description}</p>
+                                )}
+                                <div className="flex items-center justify-between pt-1">
+                                    <span className="text-sm font-bold text-red-600">
+                                        ${Number(plato.price).toFixed(2)}
+                                    </span>
+                                    {plato.category && (
+                                        <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${categoryColor[plato.category] ?? "bg-stone-100 text-stone-500"}`}>
+                                            {plato.category}
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            )}
         </div>
     )
 }
