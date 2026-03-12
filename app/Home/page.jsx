@@ -54,7 +54,7 @@ export default function Home() {
       try {
         setCargandoLocales(true);
         const data = await getLocales(filtersLocal);
-        setLocales(data.items);
+        setLocales(data);
       } catch (error) {
         console.error("Error al obtener locales:", error);
       } finally {
@@ -70,7 +70,7 @@ export default function Home() {
       try {
         setCargandoPlatos(true);
         const data = await getPlatos(filtersPlatos);
-        setPlatos(data.items);
+        setPlatos(data);
       } catch (error) {
         console.error("Error al obtener platos:", error);
       } finally {

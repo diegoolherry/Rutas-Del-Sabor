@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 export default function Login(){
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
     const router = useRouter();
 
     const handleSubmit = async (e) => {
@@ -19,7 +20,8 @@ export default function Login(){
             router.push("/Home");
 
         } catch(error){
-            console.error("Error al iniciar sesión:", error.message);
+            setError(error.message);
+            
         }
         setUsername("");
         setPassword("");
@@ -85,7 +87,7 @@ export default function Login(){
                   ¿No tiene cuenta?
                 </a>
               </div>
-
+              {error}
               
             </form>
           </div>

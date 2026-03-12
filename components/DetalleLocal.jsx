@@ -16,8 +16,8 @@ const DetalleLocal = () => {
         if(!id) return;
         const fetchLocal = async () => {
             const data = await getLocal(id);
-            setLocal(data.item);
-            console.log(data.item);
+            setLocal(data);
+            console.log(data);
         }
 
         fetchLocal()

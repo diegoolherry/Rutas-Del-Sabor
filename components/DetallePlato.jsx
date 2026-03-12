@@ -28,7 +28,7 @@ const DetallePlato = ({ id }) => {
         const fetchPlato = async () => {
             try {
                 const data = await getPlatoById(id);
-                setPlato(data.item);
+                setPlato(data);
             } catch (error) {
                 console.error("Error al obtener plato:", error);
             }

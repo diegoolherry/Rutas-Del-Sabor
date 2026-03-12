@@ -27,9 +27,8 @@ export default function PerfilComponent({ userId }) {
             try{
                 const data = await getUser(userId);
                 setUser(data);
-                setLocales(data.item.locals  || []);
-                setPlatos(data.item.dishes || []);
-                console.log(data);
+                setLocales(data.locals  || []);
+                setPlatos(data.dishes || []);
             }
             catch(error){
                 console.error("Error al obtener usuario:", error);
@@ -38,18 +37,18 @@ export default function PerfilComponent({ userId }) {
         fetchUser();
     }, [userId]);
 
-    if (!user || !user.item) return <p>Cargando perfil...</p>;
+    if (!user) return <p>Cargando perfil...</p>;
 
     return (  
         <div className="max-w-4xl mx-auto px-6 py-10">
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-8">
                 <div className="flex items-center gap-5">
                     <div className="w-16 h-16 rounded-full bg-indigo-100 flex items-center justify-center text-2xl font-bold text-indigo-600">
-                        {user.item.name.charAt(0).toUpperCase()}
+                        {user.name.charAt(0).toUpperCase()}
                     </div>
                     <div>
-                        <h3 className="text-2xl font-bold text-gray-900">{user.item.name}</h3>
-                        <p className="text-sm text-gray-400 mt-0.5">@{user.item.username}</p>
+                        <h3 className="text-2xl font-bold text-gray-900">{user.name}</h3>
+                        <p className="text-sm text-gray-400 mt-0.5">@{user.username}</p>
                     </div>
                 </div>
                 <div className="mt-6 flex flex-wrap gap-3">
@@ -69,7 +68,7 @@ export default function PerfilComponent({ userId }) {
             </div>
 
             <h2 className="text-lg font-semibold text-gray-700 mb-4">
-                Locales de <span className="text-indigo-600">{user.item.name}</span>
+                Locales de <span className="text-indigo-600">{user.name}</span>
             </h2>
 
             <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -105,7 +104,7 @@ export default function PerfilComponent({ userId }) {
                 ))}
             </ul>
             <h2 className="text-lg font-semibold text-gray-700 mb-4">
-                Platos de <span className="text-indigo-600">{user.item.name}</span>
+                Platos de <span className="text-indigo-600">{user.name}</span>
             </h2>
             {platos.length === 0 ? (
                 <p className="text-sm text-gray-400">No hay platos creados aún.</p>
